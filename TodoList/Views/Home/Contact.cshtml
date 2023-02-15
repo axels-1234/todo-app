@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Kontakt";
+}
+@model TodoList.Models.ContactModel
+<h2 style="text-align: center; color: black;">@ViewData["Title"]</h2>
+
+<div>
+    <div class="contact">
+        <div class="contact-area">
+            <h2>Skicka ett mejl 📧</h2>
+            <br />
+            <div>
+                @foreach (var email in TodoList.Repositories.PeopleRepository.GetEmail())
+                {
+                    <p><a href="mailto:@email">@email</a></p>
+                }
+            </div>
+        </div>
+        <div class="contact-area">
+            <h2>Ring oss ☎️</h2>
+            <br />
+            <div>
+                @foreach (var number in TodoList.Repositories.PeopleRepository.GetPhonenumbers())
+                {
+                    <p><a href="tel:@number">@number</a></p>
+                }
+            </div>
+        </div>
+        <div class="contact-area">
+            <h2>Besök oss 🚶</h2>
+            <br />
+            <div>
+                @foreach (var address in TodoList.Repositories.PeopleRepository.GetAddresses())
+                {
+                    <p>@address</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div>
+        <form method="post" asp-controller="Home" asp-action="Contact" class="contact-form">
+            <label asp-for="Category">Kategori</label>
+            <input asp-for="Category" type="text" maxlength="50" />
+            @Html.ValidationMessageFor(model => model.Category)
+            <label asp-for="Content">Din åsikt:</label>
+            <textarea asp-for="Content" placeholder="Skriv din åsikt här"></textarea>
+            @Html.ValidationMessageFor(model => model.Content)
+            <button type="submit">Klar!</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .contact-form * {
+        color: black;
+    }
+    .contact, .contact-form {
+        color: black;
+    }
+    .contact {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .contact>.contact-area {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        min-width: min(500px, 30%);
+        max-width: min(500px, 100%);
+        height: auto;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: lightgray;
+    }
+    .contact>.contact-area h2 {
+        margin: 0;
+    }
+    .contact-form {
+        width: min(100%, 450px);
+        margin: 0 auto;
+    }
+    .contact-form>input,.contact-form>label,.contact-form>textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .contact-form>textarea {
+        min-height: 250px;
+        resize: vertical;
+    }
+    div:has(.contact) {
+        padding: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: gray;
+    }
+    div:has(.contact) h1, div:has(.contact) h2, div:has(.contact) h3, div:has(.contact) h4, div:has(.contact) h5, div:has(.contact) h6 {
+        margin: 0;
+    }
+</style>
+

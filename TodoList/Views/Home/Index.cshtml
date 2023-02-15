@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Hem";
+}
+@model List<TodoModel>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    if (Model.Count > 0)
+    {
+        @foreach (var todo in Model)
+        {
+            <div style="width: calc(100% - 10px); background-color: lightgray; border-radius: 5px; padding: 5px; color: black; margin-bottom: 16px;">
+                <form method="post" asp-controller="Home" asp-action="RemoveTodo">
+                    <input type="hidden" value="@todo.Id" name="id" />
+                    <p>@(todo.Thing) <a asp-controller="Home" asp-action="EditTodo" asp-route-id="@todo.Id">🖊️</a><button type="submit" style="border: none; background-color: transparent;">❌</button></p>
+                    <p>Skapat @(todo.Timestamp.ToString("ddd dd MMMM yyyy"))</p>
+                    @if (todo.LastDate != null)
+                    {
+                        <p>Ska göras inan @todo.LastDate.Value.ToString("ddd dd MMMM yyyy")</p>
+                    }
+                </form>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Du har inte lagt till några saker än</p>
+    }
+}
+else
+{
+    <p>Du behöver logga in eller skapa ett konto för att använda den här sidan</p>
+}
+

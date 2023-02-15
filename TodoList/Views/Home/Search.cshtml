@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Sök";
+}
+@model SearchModel
+
+<form method="get" asp-controller="Home" asp-action="Search" style="color: black;" autocomplete="off">
+    <input type="text" name="q" value="@Model.q" />
+</form>
+
+
+<div>
+    @foreach (var todo in Model.Todos)
+    {
+        <div>
+            <form method="post" asp-controller="Home" asp-action="RemoveTodo">
+                <input type="hidden" value="@todo.Id" name="id" />
+                <p>@(todo.Thing) <a asp-controller="Home" asp-action="EditTodo" asp-route-id="@todo.Id">🖊️</a><button type="submit" style="border: none; background-color: transparent;">❌</button></p>
+                <p>Skapat @(todo.Timestamp.ToString("ddd dd MMMM yyyy"))</p>
+                @if (todo.LastDate != null)
+                {
+                    <p>Ska göras inan @todo.LastDate.Value.ToString("ddd dd MMMM yyyy")</p>
+                }
+            </form>
+            <hr />
+        </div>
+    }
+</div>
+
+@if (Model.p > 0 || Model.p < Model.nrOfPages)
+{
+    <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+        @if (Model.p > 0)
+        {
+            <form method="get" asp-controller="Home" asp-action="Search" style="color: black;" autocomplete="off">
+                <input type="hidden" name="q" value="@Model.q" />
+                <input type="hidden" name="p" value="@(Model.p - 1)" />
+                <button type="submit">&lt;&lt;&lt;</button>
+            </form>
+        }
+        @if (Model.p < Model.nrOfPages)
+        {
+            <form method="get" asp-controller="Home" asp-action="Search" style="color: black;" autocomplete="off">
+                <input type="hidden" name="q" value="@Model.q" />
+                <input type="hidden" name="p" value="@(Model.p + 1)" />
+                <button type="submit">&gt;&gt;&gt;</button>
+            </form>
+        }
+    </div>
+}
+
+@if (Model.q == "42" || Model.p == 42)
+{
+    <p>42 är meningen med livet, universum och allting</p>
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Ny Sak Att Göra";
+}
+@model TodoModel
+
+<br />
+<form method="post" asp-controller="Home" asp-action="NewTodoItem" style="width: min(450px, 100%); margin: 0 auto; color: black;">
+    <textarea asp-for="Thing" required autofocus style="width: 100%; resize: vertical;" placeholder="Skriv vad du ska göra här"></textarea>
+    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <label asp-for="LastDate">Sista datum för att bli klar (frivilligt): </label>
+        <input asp-for="LastDate" type="date" min="@ViewBag.MinDate" style="width: 100%;" />
+    </div>
+    <br />
+    <div style="width: fit-content; margin: 0 auto;">
+        <button type="submit">Klar!</button>
+    </div>
+</form>

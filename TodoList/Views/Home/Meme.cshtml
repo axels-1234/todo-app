@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Dagens meme";
+}
+@model TodoList.Models.MemeModel
+
+
+<div style="max-width: 700px; width: fit-content; margin: 0 auto; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: lightgray; color: black;">
+    <h2 style="padding: 0 5px;">@Model.Title</h2>
+    <p style="padding: 0 5px;">Skapad av <a href="https://www.reddit.com/u/@Model.Author" target="_blank" style="color: black;">u/@Model.Author</a></p>
+    <p style="padding: 0 5px;"><a href="@Model.PostLink" target="_blank" style="color: black; font-style: italic;">Du kan se posten här</a></p>
+    <div style="width: fit-content; margin: 0 auto;">
+        <img src="@Model.Preview[Model.Preview.Length - 1]" alt="@Model.Title" width="700" height="700" style="max-width: 700px; width: auto; max-height: 600px; height: auto;" />
+    </div>
+</div>
+
+<!-- @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model).ToString()) -->
+

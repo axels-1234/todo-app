@@ -1,0 +1,23 @@
+﻿@{ 
+    ViewData["Title"] = "Redigera";
+}
+
+@model TodoModel
+
+@if (ViewBag.IsOwner)
+{
+    <form method="post" asp-controller="Home" asp-action="EditTodo" style="width: min(450px, 100%); margin: 0 auto;">
+        @Html.Hidden("Id", Model.Id)
+        @Html.Hidden("UserId", Model.UserId)
+        <textarea asp-for="Thing" style="width: 100%; resize: vertical;">@Model.Thing</textarea>
+        <input type="date" asp-for="LastDate" style="width: 100%;" />
+        <br />
+        <br />
+        <div style="width: fit-content; margin: 0 auto;">
+            <button type="submit">Klar!</button>
+        </div>
+    </form>
+}
+else
+{
+}

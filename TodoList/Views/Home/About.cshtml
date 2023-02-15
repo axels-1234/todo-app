@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Om oss";
+}
+<h2 style="text-align: center; color: black;">@ViewData["Title"]</h2>
+
+<div class="about-page">
+    <div>
+        <h2 style="text-align: center;">Lorem Ipsum Dolor...</h2>
+        <p>@TodoList.Repositories.PeopleRepository.GetLorem()</p>
+        <p>@TodoList.Repositories.PeopleRepository.GetLorem()</p>
+        <p>@TodoList.Repositories.PeopleRepository.GetLorem()</p>
+    </div>
+    <div class="people">
+        @foreach (var person in TodoList.Repositories.PeopleRepository.GetPeople())
+        {
+            <div style="color: black;">
+                <p>@person.Name</p>
+                <p>@TodoList.Repositories.CodeRepository.YearDifferance(DateTime.Now, person.Birthday) år</p>
+                <p><a href="mailto:@person.Email" style="color: black;">@person.Email</a></p>
+                <p><a href="tel:@person.Phone" style="color: black;">Ring: @person.Phone</a></p>
+                <p>@(person.Address + ", " + person.City)</p>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .about-page {
+        display: flex;
+        flex-direction: row;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: lightgray;
+        color: black;
+    }
+    .about-page > div {
+        min-width: min(500px, 50%);
+        max-width: 100%;
+    }
+    .about-page > div:not(.people) > p {
+        padding: 0 10px;
+        text-align: justify;
+    }
+    .people {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: fit-content;
+        margin-bottom: 16px;
+        padding: 16px;
+        padding-bottom: 0;
+        background-color: gray;
+        border-radius: 5px;
+    }
+    .people > div {
+        margin: 0;
+        margin-bottom: 16px;
+        padding: 16px;
+        background-color: lightgray;
+        border-radius: 5px;
+    }
+    @@media screen and (max-width: 500px) {
+        .about-page > div {
+            min-width: 500px;
+        }
+    }
+</style>

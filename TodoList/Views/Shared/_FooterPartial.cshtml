@@ -1,0 +1,85 @@
+﻿<footer>
+    <div>
+        <div>
+            <h2>Axels Attgöra-lista</h2>
+            <br />
+            <p>Interna länkar:</p>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Hem</a></li>
+                <li><a asp-controller="Home" asp-action="About">Om oss</a></li>
+                <li><a asp-controller="Home" asp-action="Contact">Kontakt</a></li>
+                <li><a asp-controller="Home" asp-action="NewTodoItem">Lägg till sak</a></li>
+            </ul>
+        </div>
+        <div id="joke">
+            <h2>Dagens Skämt:</h2>
+            <br />
+            <p>@TodoList.Repositories.CodeRepository.GetJoke().Setup<br /><span class="joke" onmouseover="makeJokeVisible();">@TodoList.Repositories.CodeRepository.GetJoke().Delivery</span></p>
+        </div>
+        <div>
+            <img src="https://styles.redditmedia.com/t5_2qjpg/styles/communityIcon_uzvo7sibvc3a1.jpg" alt="logo" />
+        </div>
+        <div>
+            <h2>&copy; 2023 Axel Sjögemark</h2>
+            <br />
+            <p>Kontakta oss: </p>
+            <div style="width: auto; display: flex; flex-direction: column;">
+                @foreach (var email in TodoList.Repositories.PeopleRepository.GetEmail())
+                {
+                    <span><a href="mailto:@email">@email</a></span>
+                }
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    var joke = $(".joke")[0];
+    if (joke.innerHTML == "") {
+        var jokeContainer = $("#joke")[0];
+        jokeContainer.remove();
+    }
+</script>
+
+<style>
+    footer {
+        width: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: black;
+    }
+    footer > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: min(1250px, 100%);
+        margin: 0 auto;
+    }
+    footer > div > div {
+        max-width: 25%;
+    }
+    footer > div > div > * {
+        max-width: 100%;
+    }
+    footer h2 {
+        margin: 0;
+    }
+    .joke:not(:hover) {
+        color: black;
+        transition: color 1s;
+    }
+</style>
+
+
+<script defer>
+    setTimeout(() => {
+        var nav = document.getElementsByTagName("nav")[0];
+        var footer = document.getElementsByTagName("footer")[0];
+        var containter = ($("#container")[0]);
+        containter.style.minHeight = "calc(100vh - 15px - " + nav.offsetHeight + "px - " + footer.offsetHeight + "px + 1px)";
+    }, 1);
+
+    function makeJokeVisible() {
+        setTimeout(() => { $("span.joke").css({ "color": "lightgray" }); }, 1000);
+    }
+</script>
